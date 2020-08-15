@@ -14,7 +14,7 @@ To make a relation between tasks:
   1. Insert ID property to parent task;
   2. Insert LINKED property with ID value of parent to several children tasks;
 
-Not parent task will be blocked by children as long as there is at least one
+Now parent task will be blocked by children as long as there is at least one
 children somewhere. You can list tasks which are blocking parent task via
 ~org-linked-tasks/show-linked-tasks~ interactive function.
 
