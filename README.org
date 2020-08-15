@@ -15,8 +15,8 @@ To make a relation between tasks:
   2. Insert LINKED property with ID value of parent to several children tasks;
 
 Now parent task will be blocked by children as long as there is at least one
-children somewhere. You can list tasks which are blocking parent task via
-~org-linked-tasks/show-linked-tasks~ interactive function.
+child somewhere in (org-agenda-files). You can list tasks which are blocking
+parent task via ~org-linked-tasks/show-linked-tasks~ interactive function.
 
 When the last child is marked as done, the parent will be scheduled for today
 and todo state will set to NEXT.
