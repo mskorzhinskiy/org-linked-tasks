@@ -1,0 +1,34 @@
+#+TITLE: ORG-mode linked tasks
+
+This package is a proof of concept from reddit thread:
+
+  https://www.reddit.com/r/emacs/comments/i9jv3l/orgedna_how_to_set_scheduled_todo_keyword_only/
+
+Package heavily rely on [[https://github.com/alphapapa/org-ql][org-ql]] package.
+
+* Usage
+
+[[https://i.imgur.com/E58ZMzL.mp4][Usage example]] video demonstatiring how does it work with [[file:example.org][example.org]].
+
+To make a relation between tasks:
+  1. Insert ID property to parent task;
+  2. Insert LINKED property with ID value of parent to several children tasks;
+
+Not parent task will be blocked by children as long as there is at least one
+children somewhere. You can list tasks which are blocking parent task via
+~org-linked-tasks/show-linked-tasks~ interactive function.
+
+When the last child is marked as done, the parent will be scheduled for today
+and todo state will set to NEXT.
+
+* Notes
+
+This is of course very raw and unfinished. Right now it is not even a real
+package, just a bunch of elisp functions. Things to do:
+
+- Make it a real elisp package
+- Make it possible to customize which files to use in search
+- Make it possible to customize property name
+- Make it possible to customize action for parent
+- Investigate how hard it would be to make ~org-ql~ dependecy optional
+- Investigate how hard it would be to extend [[https://orgmode.org/worg/org-contrib/org-depend.html][org-depend]] or [[https://www.nongnu.org/org-edna-el/][org-edna]] with this functionality

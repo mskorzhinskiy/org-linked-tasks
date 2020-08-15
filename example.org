@@ -1,0 +1,16 @@
+#+TITLE: Example org-mode file
+#+TODO: TODO NEXT | DONE
+
+* Testing range
+** TODO Parent
+:PROPERTIES:
+:ID:       a870b93f-948c-4451-b7bc-19910130dbf8
+:END:
+** TODO Child 1 (mark this as DONE)
+:PROPERTIES:
+:LINKED:   a870b93f-948c-4451-b7bc-19910130dbf8
+:END:
+** TODO Child 2 (mark this as DONE)
+:PROPERTIES:
+:LINKED:   a870b93f-948c-4451-b7bc-19910130dbf8
+:END:
