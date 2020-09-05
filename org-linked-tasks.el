@@ -55,7 +55,6 @@ last item."
         (let ((entries (org-ql-select (funcall org-linked-tasks-files)
                          `(and (property ,org-linked-tasks-property ,parent-id)
                                (not (done))))))
-          (message (format ">> %d" (length entries)))
           (if (= 0 (length entries))
               (let ((marker (org-id-find parent-id 'marker)))
                 (with-current-buffer (marker-buffer marker)
