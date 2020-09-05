@@ -1,26 +1,29 @@
-;;; org-linked-tasks.el -*- lexical-binding: t; -*-
-;;
+;;; org-linked-tasks.el --- `org-mode' property for linking tasks together -*- lexical-binding: t; -*-
+
 ;; Copyright (C) 2020 Mikhail Skorzhisnkii
-;;
-;; Author: Mikhail Skorzhisnkii <http://github/mskorzhinskiy>
-;; Maintainer: Mikhail Skorzhisnkii <mskorzhinskiy@eml.cc>
+
+;; Author: Mikhail Skorzhisnkii <mskorzhinskiy@eml.cc>
 ;; Created: August 15, 2020
-;; Modified: August 15, 2020
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/mskorzhinskiy/org-linked-tasks
 ;; Package-Requires: ((emacs 27.0.91) (cl-lib "0.5"))
 ;;
 ;; This file is not part of GNU Emacs.
-;;
+
 ;;; Commentary:
-;;
-;;
-;;
+
+;; `org-linked-tasks' is implements special `org-mode' property to link
+;; headlines together based on their IDs.
+
 ;;; Code:
+
+;;;; Requirements
 
 (require 'org-id)
 (require 'org-ql)
+
+;;;; Customization
 
 (defcustom org-linked-tasks-files #'org-agenda-files-with-current-file
   "Files to use when doing searched for linked tasks.
@@ -42,6 +45,8 @@ on parrent task."
   :group 'org-agenda
   :type 'function)
 
+;;;; Functions
+
 (defun org-linked-tasks-schedule-and-next ()
   "Schedule and switch headline to NEXT."
   (org-schedule nil (current-time))
@@ -58,6 +63,8 @@ on parrent task."
 
 (defun org-linked-tasks/schedule-and-mark-next-trigger (change-plist)
   "Hook function for `org-trigger-hook'.
+
+CHANGE-PLIST is a property list with TODO state changes.
 
 Schedule for today and mark parent task as NEXT if this is the
 last item."
@@ -76,6 +83,8 @@ last item."
 
 (defun org-linked-tasks/check-blocked-state (change-plist)
   "Hook function for `org-blocker-hook'.
+
+CHANGE-PLIST is a property list with TODO state changes.
 
 Check blocked state of the task based on its ID."
   (if (member (plist-get change-plist :to) org-done-keywords)
