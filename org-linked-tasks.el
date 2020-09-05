@@ -22,12 +22,6 @@
 (require 'org-id)
 (require 'org-ql)
 
-(add-hook #'org-trigger-hook
-          #'org-linked-tasks/schedule-and-mark-next-trigger)
-
-(add-hook #'org-blocker-hook
-          #'org-linked-tasks/check-blocked-state)
-
 (defun org-agenda-files-with-current-file ()
   "Small helper for demonstration. Return all agenda files and current buffer."
   (let ((files (org-agenda-files t nil)))
@@ -88,6 +82,22 @@ Check blocked state of the task based on its ID."
           `(property "LINKED" ,id)
           :title (concat "Linked for: " (org-get-heading t)))
       (message "No ID stored in this task!"))))
+
+;; TODO: should I add autoload?
+(defun org-linked-tasks-load ()
+  "Install all required hooks for this package to operate."
+  (add-hook #'org-trigger-hook
+            #'org-linked-tasks/schedule-and-mark-next-trigger)
+  (add-hook #'org-blocker-hook
+            #'org-linked-tasks/check-blocked-state))
+
+;; TODO: should I add autoload?
+(defun org-linked-tasks-unload ()
+  "Uninstall all hooks."
+  (remove-hook #'org-trigger-hook
+               #'org-linked-tasks/schedule-and-mark-next-trigger)
+  (remove-hook #'org-blocker-hook
+               #'org-linked-tasks/check-blocked-state))
 
 (provide 'org-linked-tasks)
 ;;; org-linked-tasks.el ends here
