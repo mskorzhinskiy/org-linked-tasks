@@ -22,6 +22,15 @@
 (require 'org-id)
 (require 'org-ql)
 
+(defcustom org-linked-tasks-files #'org-agenda-files-with-current-file
+  "Files to use when doing searched for linked tasks.
+
+Function: accept no arguments, should return list of `org-mode' files."
+  :group 'org-agenda
+  :type 'function)
+
+;; TODO: Should I keep this funcion here for the test purpouses, or is it too
+;; lame?
 (defun org-agenda-files-with-current-file ()
   "Small helper for demonstration. Return all agenda files and current buffer."
   (let ((files (org-agenda-files t nil)))
@@ -38,7 +47,7 @@ last item."
     (let ((parent-id (org-entry-get (point) "LINKED")))
       (when parent-id
         (org-delete-property "LINKED")
-        (let ((entries (org-ql-select (org-agenda-files-with-current-file)
+        (let ((entries (org-ql-select (funcall org-linked-tasks-files)
                          `(and (property "LINKED" ,parent-id)
                                (not (done))))))
           (message (format ">> %d" (length entries)))
@@ -56,7 +65,7 @@ Check blocked state of the task based on its ID."
   (if (member (plist-get change-plist :to) org-done-keywords)
     (let* ((id (org-id-get))
            (headings (when id
-                       (org-ql-select (org-agenda-files-with-current-file)
+                       (org-ql-select (funcall org-linked-tasks-files)
                          `(property "LINKED" ,id)
                          :action (lambda () (org-get-heading))))))
       (if headings
@@ -78,7 +87,7 @@ Check blocked state of the task based on its ID."
   (interactive)
   (let ((id (org-id-get)))
     (if id
-        (org-ql-search (org-agenda-files-with-current-file)
+        (org-ql-search (funcall org-linked-tasks-files)
           `(property "LINKED" ,id)
           :title (concat "Linked for: " (org-get-heading t)))
       (message "No ID stored in this task!"))))
