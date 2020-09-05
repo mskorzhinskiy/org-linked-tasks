@@ -7,8 +7,8 @@
 ;; Version: 0.0.1
 ;; Keywords:
 ;; Homepage: https://github.com/mskorzhinskiy/org-linked-tasks
-;; Package-Requires: ((emacs 27.0.91) (cl-lib "0.5"))
-;;
+;; Package-Requires: ((emacs "26.1") (org "9.0") (org-ql "0.5-pre"))
+
 ;; This file is not part of GNU Emacs.
 
 ;;; Commentary:
