@@ -29,6 +29,11 @@ Function: accept no arguments, should return list of `org-mode' files."
   :group 'org-agenda
   :type 'function)
 
+(defcustom org-linked-tasks-property "LINKED"
+  "Property name to be used for linked tasks."
+  :group 'org-agenda
+  :type 'string)
+
 ;; TODO: Should I keep this funcion here for the test purpouses, or is it too
 ;; lame?
 (defun org-agenda-files-with-current-file ()
@@ -44,11 +49,11 @@ Function: accept no arguments, should return list of `org-mode' files."
 Schedule for today and mark parent task as NEXT if this is the
 last item."
   (when (member (plist-get change-plist :to) org-done-keywords)
-    (let ((parent-id (org-entry-get (point) "LINKED")))
+    (let ((parent-id (org-entry-get (point) org-linked-tasks-property)))
       (when parent-id
-        (org-delete-property "LINKED")
+        (org-delete-property org-linked-tasks-property)
         (let ((entries (org-ql-select (funcall org-linked-tasks-files)
-                         `(and (property "LINKED" ,parent-id)
+                         `(and (property ,org-linked-tasks-property ,parent-id)
                                (not (done))))))
           (message (format ">> %d" (length entries)))
           (if (= 0 (length entries))
@@ -66,7 +71,7 @@ Check blocked state of the task based on its ID."
     (let* ((id (org-id-get))
            (headings (when id
                        (org-ql-select (funcall org-linked-tasks-files)
-                         `(property "LINKED" ,id)
+                         `(property ,org-linked-tasks-property ,id)
                          :action (lambda () (org-get-heading))))))
       (if headings
           (let* ((first-heading (pop headings))
@@ -88,7 +93,7 @@ Check blocked state of the task based on its ID."
   (let ((id (org-id-get)))
     (if id
         (org-ql-search (funcall org-linked-tasks-files)
-          `(property "LINKED" ,id)
+          `(property ,org-linked-tasks-property ,id)
           :title (concat "Linked for: " (org-get-heading t)))
       (message "No ID stored in this task!"))))
 
