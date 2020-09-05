@@ -27,6 +27,5 @@ This is of course very raw and unfinished. Right now it is not even a real
 package, just a bunch of elisp functions. Things to do:
 
 - Make it a real elisp package
-- Make it possible to customize action for parent
 - Investigate how hard it would be to make ~org-ql~ dependecy optional
 - Investigate how hard it would be to extend [[https://orgmode.org/worg/org-contrib/org-depend.html][org-depend]] or [[https://www.nongnu.org/org-edna-el/][org-edna]] with this functionality

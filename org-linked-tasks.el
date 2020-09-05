@@ -34,6 +34,19 @@ Function: accept no arguments, should return list of `org-mode' files."
   :group 'org-agenda
   :type 'string)
 
+(defcustom org-linked-tasks-action #'org-linked-tasks-schedule-and-next
+  "What to do when linked all linked tasks are finally done.
+
+Function: accept to arguments, called with pointer and buffer set
+on parrent task."
+  :group 'org-agenda
+  :type 'function)
+
+(defun org-linked-tasks-schedule-and-next ()
+  "Schedule and switch headline to NEXT."
+  (org-schedule nil (current-time))
+  (org-todo "NEXT"))
+
 ;; TODO: Should I keep this funcion here for the test purpouses, or is it too
 ;; lame?
 (defun org-agenda-files-with-current-file ()
@@ -59,8 +72,7 @@ last item."
               (let ((marker (org-id-find parent-id 'marker)))
                 (with-current-buffer (marker-buffer marker)
                   (goto-char (marker-position marker))
-                  (org-schedule nil (current-time))
-                  (org-todo "NEXT")))))))))
+                  (funcall org-linked-tasks-action)))))))))
 
 (defun org-linked-tasks/check-blocked-state (change-plist)
   "Hook function for `org-blocker-hook'.
