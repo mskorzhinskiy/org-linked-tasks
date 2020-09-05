@@ -108,7 +108,7 @@ Check blocked state of the task based on its ID."
           :title (concat "Linked for: " (org-get-heading t)))
       (message "No ID stored in this task!"))))
 
-;; TODO: should I add autoload?
+;;;###autoload
 (defun org-linked-tasks-load ()
   "Install all required hooks for this package to operate."
   (add-hook #'org-trigger-hook
@@ -116,7 +116,7 @@ Check blocked state of the task based on its ID."
   (add-hook #'org-blocker-hook
             #'org-linked-tasks/check-blocked-state))
 
-;; TODO: should I add autoload?
+;;;###autoload
 (defun org-linked-tasks-unload ()
   "Uninstall all hooks."
   (remove-hook #'org-trigger-hook
