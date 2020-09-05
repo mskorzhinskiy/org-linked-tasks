@@ -45,7 +45,7 @@
   :group 'org
   :link '(url-link "https://github.com/mskorzhinskiy/org-linked-tasks"))
 
-(defcustom org-linked-tasks-files #'org-agenda-files-with-current-file
+(defcustom org-linked-tasks-files #'org-agenda-files
   "Files to use when doing searched for linked tasks.
 
 Function: accept no arguments, should return list of `org-mode' files."
@@ -71,15 +71,6 @@ on parrent task."
   "Schedule and switch headline to NEXT."
   (org-schedule nil (current-time))
   (org-todo "NEXT"))
-
-;; TODO: Should I keep this funcion here for the test purpouses, or is it too
-;; lame?
-(defun org-agenda-files-with-current-file ()
-  "Small helper for demonstration. Return all agenda files and current buffer."
-  (let ((files (org-agenda-files t nil)))
-    (when (string= major-mode 'org-mode)
-      (push (buffer-file-name (current-buffer)) files))
-    files))
 
 (defun org-linked-tasks/schedule-and-mark-next-trigger (change-plist)
   "Hook function for `org-trigger-hook'.
