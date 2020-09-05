@@ -4,7 +4,7 @@
 
 ;; Author: Mikhail Skorzhisnkii <mskorzhinskiy@eml.cc>
 ;; Created: August 15, 2020
-;; Version: 0.0.1
+;; Version: 0.1.0
 ;; Keywords:
 ;; Homepage: https://github.com/mskorzhinskiy/org-linked-tasks
 ;; Package-Requires: ((emacs "26.1") (org "9.0") (org-ql "0.5-pre"))
