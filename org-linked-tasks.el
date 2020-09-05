@@ -40,16 +40,21 @@
 
 ;;;; Customization
 
+(defgroup org-linked-tasks nil
+  "Customisation for `org-linked-tasks'"
+  :group 'org
+  :link '(url-link "https://github.com/mskorzhinskiy/org-linked-tasks"))
+
 (defcustom org-linked-tasks-files #'org-agenda-files-with-current-file
   "Files to use when doing searched for linked tasks.
 
 Function: accept no arguments, should return list of `org-mode' files."
-  :group 'org-agenda
+  :group 'org-linked-tasks
   :type 'function)
 
 (defcustom org-linked-tasks-property "LINKED"
   "Property name to be used for linked tasks."
-  :group 'org-agenda
+  :group 'org-linked-tasks
   :type 'string)
 
 (defcustom org-linked-tasks-action #'org-linked-tasks-schedule-and-next
@@ -57,7 +62,7 @@ Function: accept no arguments, should return list of `org-mode' files."
 
 Function: accept to arguments, called with pointer and buffer set
 on parrent task."
-  :group 'org-agenda
+  :group 'org-linked-tasks
   :type 'function)
 
 ;;;; Functions
