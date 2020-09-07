@@ -1,31 +1,37 @@
 #+TITLE: ORG-mode linked tasks
 
-This package is a proof of concept from reddit thread:
+This package is a proof of concept from this reddit thread:
 
   https://www.reddit.com/r/emacs/comments/i9jv3l/orgedna_how_to_set_scheduled_todo_keyword_only/
 
-Package heavily rely on [[https://github.com/alphapapa/org-ql][org-ql]] package.
+Package heavily relies on [[https://github.com/alphapapa/org-ql][org-ql]] package.
 
 * Usage
 
-[[https://i.imgur.com/E58ZMzL.mp4][Usage example]] video demonstatiring how does it work with [[file:example.org][example.org]].
+[[https://i.imgur.com/E58ZMzL.mp4][The usage example]] video demonstrating how it works with [[file:example.org][example.org]].
 
 To make a relation between tasks:
-  1. Insert ID property to parent task;
-  2. Insert LINKED property with ID value of parent to several children tasks;
+  1. Insert ID property to a parent task;
+  2. Insert LINKED property with ID value of a parent to its children;
 
-Now parent task will be blocked by children as long as there is at least one
-child somewhere in (org-agenda-files). You can list tasks which are blocking
-parent task via ~org-linked-tasks/show-linked-tasks~ interactive function.
+With this being done, a parent task will be blocked by its children as long as
+there is at least one child somewhere in ~(org-agenda-files)~. You can list tasks
+which are blocking parent task via ~org-linked-tasks/show-linked-tasks~
+interactive function.
 
 When the last child is marked as done, the parent will be scheduled for today
 and todo state will set to NEXT.
 
-* Notes
+* Improvement ideas
 
-This is of course very raw and unfinished. Right now it is not even a real
-package, just a bunch of elisp functions. Things to do:
+** Propose this feature to the ~org-edna~ or ~org-depend~
 
-- Make it a real elisp package
-- Investigate how hard it would be to make ~org-ql~ dependecy optional
-- Investigate how hard it would be to extend [[https://orgmode.org/worg/org-contrib/org-depend.html][org-depend]] or [[https://www.nongnu.org/org-edna-el/][org-edna]] with this functionality
+Package at this stage is more in the proof of concept stage rather then finished idea. The functionality introduced by this package is too inflexible and doesn't play well with other similar packages: [[https://orgmode.org/worg/org-contrib/org-depend.html][org-depend]] or [[https://www.nongnu.org/org-edna-el/][org-edna]].
+
+** Remove hard dependecy on ~org-ql~
+
+Since all linking is done through the ~org-id~, we possibly can live absolutely fine without this hard dependecy.
+
+** Use trigger action from org-depend or ord-enda instead
+
+Action customisation is done through the elisp function. This is not an ideal design, since user may want to have varying behaviour for different headlines. May be introduce additional property that will understand ~org-edna~ or ~org-depend~ syntax?
